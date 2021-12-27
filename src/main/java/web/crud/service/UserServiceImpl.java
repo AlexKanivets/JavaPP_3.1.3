@@ -23,9 +23,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createUser(User user) {
+    public User createUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.createUser(user);
+        return user;
     }
 
     @Override
@@ -40,10 +41,11 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void updateUser(long id, User updatedUser) {
+    public User updateUser(long id, User updatedUser) {
         if (updatedUser.getPassword() != "")
             updatedUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
         userDao.updateUser(id, updatedUser);
+        return updatedUser;
     }
 
     @Override
