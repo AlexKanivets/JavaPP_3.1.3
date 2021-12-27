@@ -1,6 +1,6 @@
 package web.crud.dao;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import web.crud.model.Role;
 
 import javax.persistence.EntityManager;
@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Component
+@Repository
 public class RoleDaoImpl implements RoleDao {
 
     @PersistenceContext
