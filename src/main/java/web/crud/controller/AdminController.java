@@ -23,7 +23,7 @@ public class AdminController {
     }
 
     @GetMapping()
-    public String getUsers(@AuthenticationPrincipal User user, Model model) {
+    public String getAllUsers(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("user", user);
         model.addAttribute("users", userService.getAllUser());
         model.addAttribute("roles", roleService.getAllRoles());

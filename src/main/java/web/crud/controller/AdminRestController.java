@@ -20,23 +20,23 @@ public class AdminRestController {
         this.userService = userService;
     }
 
-    @GetMapping("/admin")
-    public List<User> listUsers() {
+    @GetMapping("/users")
+    public List<User> allUsers() {
         return userService.getAllUser();
     }
 
-    @GetMapping("/admin/{id}")
+    @GetMapping("/users/{id}")
     public User getUserById(@PathVariable("id") long id) {
         return userService.getUserById(id);
     }
 
-    @PostMapping("/admin")
+    @PostMapping("/users")
     public User newUser(@RequestBody User user) {
         User user1 = user;
         return userService.createUser(user1);
     }
 
-    @PatchMapping("/admin/{id}")
+    @PatchMapping("/users/{id}")
     public User updateUser(@RequestBody User user, @PathVariable("id") long id) {
         return userService.updateUser(id, user);
     }
