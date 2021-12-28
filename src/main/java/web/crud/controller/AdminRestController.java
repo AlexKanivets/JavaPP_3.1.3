@@ -41,7 +41,7 @@ public class AdminRestController {
         return userService.updateUser(id, user);
     }
 
-    @DeleteMapping("/admin/{id}")
+    @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable("id") long id) {
         userService.deleteUser(id);
     }

@@ -31,3 +31,74 @@ function addUserForTable(user) {
         '</tr>'
     )
 }
+
+function getRoles(list) {
+    let roles = [];
+    if (list.indexOf("USER") >= 0) {
+        roles.push({"id": 2});
+    }
+    if (list.indexOf("ADMIN") >= 0) {
+        roles.push({"id": 1});
+    }
+    return roles;
+}
+
+function newUser() {
+    let name = document.getElementById('newName').value;
+    let lastname = document.getElementById('newLastname').value;
+    let age = document.getElementById('newAge').value;
+    let email = document.getElementById('newEmail').value;
+    let password = document.getElementById('newPassword').value;
+    let roles = getRoles(Array.from(document.getElementById('newRole').selectedOptions)
+        .map(role => role.value));
+    fetch("/api/users", {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify({
+            name: name,
+            lastname: lastname,
+            age: age,
+            email: email,
+            password: password,
+            roles: roles
+        })
+    })
+        .then(() => {
+            getUsers();
+            document.getElementById("newUserForm").reset();
+        })
+}
+
+function deleteUserById(id) {
+    fetch("/api/users/" + id, {method: 'GET', dataType: 'json',})
+        .then(res => {
+            res.json().then(user => {
+                $('#deleteId').val(user.id)
+                $('#deleteName').val(user.name)
+                $('#deleteLastname').val(user.lastname)
+                $('#deleteAge').val(user.age)
+                $('#deleteEmail').val(user.email)
+                $('#deletePassword').val(user.password)
+                user.roles.map(role => {
+                    $('#deleteRole').append('<option id="' + role.id + '" name="' + role.role + '">' +
+                        role.role + '</option>')
+                })
+            })
+        })
+}
+
+function closeForm() {
+    $("#delete .close").click();
+    $('#deleteRole > option').remove();
+}
+function deleteUser() {
+    fetch("/api/users/" + ($('#deleteId').val()), {method: "DELETE"})
+        .then(() => {
+            userInfo.empty();
+            getUsers();
+            closeForm();
+        })
+}

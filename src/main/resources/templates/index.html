@@ -62,46 +62,50 @@
                         <tbody id="tableAllUsers"></tbody>
                     </table>
                 </div>
-                <div class="tab-pane bg-white" id="newUser">
+                <div class="tab-pane bg-white" id="newUser" aria-labelledby="newUserActive">
                     <h5 class="p-2 pl-3 m-0 rounded bg-light">Add new user</h5>
                     <div class="row pt-3 pb-3">
                         <div class="col-md-4 mx-auto col text-center">
-                            <form>
+                            <form id="newUserForm">
                                 <div class="form-group text-center font-weight-bold">
                                     <label>First name
                                         <input type="text"
                                                class="form-control form-control-sm"
-                                               id="addName" name="name">
+                                               id="newName" name="name">
                                     </label>
                                     <br>
                                     <label>Last name
                                         <input type="text"
                                                class="form-control form-control-sm"
-                                               id="addLastname" name="lastname">
+                                               id="newLastname" name="lastname">
                                     </label>
                                     <br>
                                     <label>Age
                                         <input type="number"
                                                class="form-control form-control-sm"
-                                               id="addAge" name="age">
+                                               id="newAge" name="age">
                                     </label>
                                     <br>
                                     <label>Email
                                         <input type="email"
                                                class="form-control form-control-sm"
-                                               id="addEmail" name="email">
+                                               id="newEmail" name="email">
                                     </label>
                                     <br>
                                     <label>Password
                                         <input type="password"
                                                class="form-control form-control-sm"
-                                               id="addPassword" name="password">
+                                               id="newPassword" name="password">
                                     </label>
                                     <br>
                                     <label>Role
-                                        <select id="addRole" class="form-control form-control-sm"
+                                        <select id="newRole" class="form-control form-control-sm"
                                                 size="2" name="nameRoles" multiple="multiple">
-                                            <option th:each="role : ${roles}" th:value="${role.role}" th:text="${role.role}" th:selected="${role.role} == USER"></option>
+                                            <option th:each="role : ${roles}"
+                                                    th:value="${role.role}"
+                                                    th:text="${role.role}"
+                                                    th:selected="${role.role} == USER">
+                                            </option>
                                         </select>
                                     </label>
                                 </div>
@@ -168,7 +172,10 @@
                                                 <label>Role
                                                     <select id="editRole" class="form-control form-control-sm"
                                                             size="2" name="nameRoles" multiple="multiple">
-                                                        <option th:each="role : ${roles}" th:value="${role.role}" th:text="${role.role}" th:selected="${role.role} == USER"></option>
+                                                        <option th:each="role : ${roles}"
+                                                                th:value="${role.role}"
+                                                                th:text="${role.role}"
+                                                                th:selected="${role.role} == USER"></option>
                                                     </select>
                                                 </label>
                                             </div>
@@ -201,7 +208,7 @@
                             <div class="modal-body">
                                 <div style="text-align: center;">
                                     <div class="row justify-content-center align-items-center">
-                                        <form>
+                                        <form id="deleteUser">
                                             <div class="form-group text-center font-weight-bold">
                                                 <label>ID
                                                     <input type="number"
@@ -234,19 +241,10 @@
                                                            id="deleteEmail" name="email" readonly>
                                                 </label>
                                                 <br>
-                                                <label>Password
-                                                    <input type="password"
-                                                           class="form-control form-control-sm"
-                                                           id="deletePassword" name="password" readonly>
-                                                </label>
-                                                <br>
                                                 <label>Role
                                                     <select id="deleteRole" class="form-control form-control-sm"
                                                             size="2" name="nameRoles"
                                                             multiple="multiple" readonly>
-                                                        <option th:each="role : ${user.getRoles()}"
-                                                                th:value="${role.getRole()}"
-                                                                th:text="${role.getRole()}"></option>
                                                     </select>
                                                 </label>
                                             </div>
@@ -256,7 +254,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
-                                        data-dismiss="modal">Close
+                                        data-dismiss="modal" onclick="closeForm()">Close
                                 </button>
                                 <button type="submit" class="btn btn-danger" onclick="deleteUser()">Delete
                                 </button>
@@ -264,16 +262,14 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
