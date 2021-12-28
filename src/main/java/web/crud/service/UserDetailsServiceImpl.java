@@ -21,11 +21,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        User user = userDao.getUserByName(name);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userDao.getUserByEmail(email);
         user.getAuthorities().size();
         if(user == null) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found", name));
+            throw new UsernameNotFoundException(String.format("User '%s' not found", email));
         }
         return user;
     }

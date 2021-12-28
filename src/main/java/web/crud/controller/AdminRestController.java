@@ -1,10 +1,8 @@
 package web.crud.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import web.crud.model.User;
-import web.crud.service.RoleService;
 import web.crud.service.UserService;
 
 import java.util.List;

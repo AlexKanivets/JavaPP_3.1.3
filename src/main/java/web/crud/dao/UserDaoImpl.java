@@ -1,13 +1,13 @@
 package web.crud.dao;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import web.crud.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Repository
+@Component
 public class UserDaoImpl implements UserDao {
 
     @PersistenceContext
@@ -46,9 +46,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUserByName(String name) {
+    public User getUserByEmail(String email) {
         return (User) entityManager.createQuery(
-                "from User u join fetch u.roles where u.name=:name"
-        ).setParameter("name", name).getSingleResult();
+                "from User u join fetch u.roles where u.email=:email"
+        ).setParameter("email", email).getSingleResult();
     }
 }

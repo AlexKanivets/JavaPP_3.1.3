@@ -52,4 +52,9 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(long id) {
         userDao.deleteUser(id);
     }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return userDao.getUserByEmail(email);
+    }
 }
