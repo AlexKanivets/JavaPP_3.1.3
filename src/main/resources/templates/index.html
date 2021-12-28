@@ -129,7 +129,7 @@
                             <div class="modal-body">
                                 <div style="text-align: center;">
                                     <div class="row justify-content-center align-items-center">
-                                        <form th:method="PATCH">
+                                        <form id="editUserForm">
                                             <div class="form-group text-center font-weight-bold">
                                                 <label>ID
                                                     <input type="number"
@@ -185,7 +185,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
-                                        data-dismiss="modal">Close
+                                        data-dismiss="modal" onclick="closeForm()">Close
                                 </button>
                                 <button type="submit" class="btn btn-primary" onclick="updateUser()">Edit
                                 </button>
@@ -208,7 +208,7 @@
                             <div class="modal-body">
                                 <div style="text-align: center;">
                                     <div class="row justify-content-center align-items-center">
-                                        <form id="deleteUser">
+                                        <form id="deleteUserForm">
                                             <div class="form-group text-center font-weight-bold">
                                                 <label>ID
                                                     <input type="number"

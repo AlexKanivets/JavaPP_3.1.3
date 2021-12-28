@@ -32,17 +32,6 @@ function addUserForTable(user) {
     )
 }
 
-function getRoles(list) {
-    let roles = [];
-    if (list.indexOf("USER") >= 0) {
-        roles.push({"id": 2});
-    }
-    if (list.indexOf("ADMIN") >= 0) {
-        roles.push({"id": 1});
-    }
-    return roles;
-}
-
 function newUser() {
     let name = document.getElementById('newName').value;
     let lastname = document.getElementById('newLastname').value;
@@ -72,6 +61,50 @@ function newUser() {
         })
 }
 
+function editUserById(id) {
+    fetch("/api/users/" + id, {method: 'GET', dataType: 'json',})
+        .then(res => {
+            res.json().then(user => {
+                $('#editId').val(user.id)
+                $('#editName').val(user.name)
+                $('#editLastname').val(user.lastname)
+                $('#editAge').val(user.age)
+                $('#editEmail').val(user.email)
+            })
+        })
+}
+
+function updateUser() {
+    let id =  document.getElementById('editId').value;
+    let name = document.getElementById('editName').value;
+    let lastname = document.getElementById('editLastname').value;
+    let age = document.getElementById('editAge').value;
+    let email = document.getElementById('editEmail').value;
+    let password = document.getElementById('editPassword').value;
+    let roles = getRoles(Array.from(document.getElementById('editRole').selectedOptions)
+        .map(role => role.value));
+    fetch("/api/users/" + id, {
+        method: "PATCH",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify({
+            name: name,
+            lastname: lastname,
+            age: age,
+            email: email,
+            password: password,
+            roles: roles
+        })
+    })
+        .then(() => {
+            userInfo.empty();
+            getUsers();
+            closeForm();
+        })
+}
+
 function deleteUserById(id) {
     fetch("/api/users/" + id, {method: 'GET', dataType: 'json',})
         .then(res => {
@@ -81,7 +114,6 @@ function deleteUserById(id) {
                 $('#deleteLastname').val(user.lastname)
                 $('#deleteAge').val(user.age)
                 $('#deleteEmail').val(user.email)
-                $('#deletePassword').val(user.password)
                 user.roles.map(role => {
                     $('#deleteRole').append('<option id="' + role.id + '" name="' + role.role + '">' +
                         role.role + '</option>')
@@ -90,10 +122,6 @@ function deleteUserById(id) {
         })
 }
 
-function closeForm() {
-    $("#delete .close").click();
-    $('#deleteRole > option').remove();
-}
 function deleteUser() {
     fetch("/api/users/" + ($('#deleteId').val()), {method: "DELETE"})
         .then(() => {
@@ -101,4 +129,23 @@ function deleteUser() {
             getUsers();
             closeForm();
         })
+}
+
+function closeForm() {
+    $("#edit .close").click();
+    document.getElementById("editUserForm").reset();
+    $("#delete .close").click();
+    document.getElementById("deleteUserForm").reset();
+    $('#deleteRole > option').remove();
+}
+
+function getRoles(list) {
+    let roles = [];
+    if (list.indexOf("USER") >= 0) {
+        roles.push({"id": 2});
+    }
+    if (list.indexOf("ADMIN") >= 0) {
+        roles.push({"id": 1});
+    }
+    return roles;
 }
